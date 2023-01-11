@@ -1,20 +1,22 @@
 import React from 'react';
 import {Form, Button} from 'react-bootstrap';
+import {useState} from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-
+/*kitap bilgileri formu state'i*/
 const BookForm = (props) => {
-    const [book, setBook] = useState({
+    const [book, setBook] = useState ({
         bookname: props.book ? props.book.bookname : '',
         author: props.book ? props.book.author : '',
         quantity: props.book ? props.book.quantity : '',
         price: props.book ? props.book.date : '',
         date: props.book ? props.book.date : '',
     });
-
+/* hata mesajı, kitap için deconstructed fonksiyon*/
     const [errorMsg, setErrorMsg] = useState('');
     const {bookname, author, price, quantity} = book;
 
+    /*hande onsubmit*/
     const handleOnSubmit = (event) => {
         event.preventDefault();
         const values = [bookname, author, price, quantity];
@@ -29,7 +31,8 @@ const BookForm = (props) => {
             const book = {
                 id: uuidv4(),
                 bookname,
-                author, price,
+                author,
+                price,
                 quantity,
                 date: new Date()
             };
@@ -40,6 +43,7 @@ const BookForm = (props) => {
         setErrorMsg(errorMsg);
     };
 
+    /*miktar ve fiyatta birtakım düzenlemeler*/
     const handleInputChange = (event) => {
       const {name, value} = event.target;
       switch (name) {
@@ -67,6 +71,7 @@ const BookForm = (props) => {
       }
     };
 
+    /*kitap sorgu değeri ekleme formu*/
     return (
         <div className="main-form">
             {errorMsg && <p className="errorMsg">{errorMsg}</p>}
